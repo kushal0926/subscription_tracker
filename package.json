@@ -4,16 +4,19 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && npx tsc",
+    "prestart": "npm run build",
     "start": "node dist/app.js",
-    "dev": "nodemon",
-    "prod": "npm run build && npm start"
+    "preserve": "npm run build",
+    "serve": "nodemon --watch src --ext ts --exec \"ts-node src/app.ts\""
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^17.2.1",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "rimraf": "^6.0.1"
   },
   "description": "subscription tracking app",
   "main": "app.js",
@@ -22,8 +25,10 @@
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.34.0",
+    "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.0",
+    "concurrently": "^9.2.1",
     "eslint": "^9.34.0",
     "globals": "^16.3.0",
     "nodemon": "^3.1.10",

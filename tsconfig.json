@@ -17,7 +17,9 @@
     "sourceMap": true,
     "isolatedModules": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true
+    "exactOptionalPropertyTypes": true,
+    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
