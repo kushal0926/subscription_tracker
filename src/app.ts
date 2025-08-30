@@ -4,6 +4,7 @@ import { PORT } from "./config/env.ts";
 import authRoutes from "./routes/auth.routes.ts";
 import userRoutes from "./routes/user.routes.ts";
 import subscriptionRoutes from "./routes/subscription.routes.ts";
+import connectDatabase from "./database/monogdb.ts";
 
 const app: Express = express();
 
@@ -17,8 +18,13 @@ app.get("/", (req: Request, res: Response) => {
   res.send(`making the subscription tracking app and something olay`);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`the server is running in the http://localhost:${PORT}`);
+
+  await connectDatabase()
+
 });
+
+export default app;
 
 
