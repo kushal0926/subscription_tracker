@@ -10,7 +10,6 @@ const connectDatabase = async (): Promise<void> => {
     try {
         await mongoose.connect(MONGODB_URI as string)
         console.log(`connected to mongodb database in ${NODE_ENV} mode`);
-
     } catch (error: unknown) {
         console.log("failed to connect to mongodb:", error);
     }
