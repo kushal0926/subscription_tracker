@@ -9,7 +9,7 @@ type CustomError = Error & {
 
 const errorMiddlware = (err: CustomError, req: Request, res: Response, next: NextFunction) => {
     try {
-        let error = { ...err }
+        let error = { ...err };
         error.message = err.message;
         console.error(err);
 
