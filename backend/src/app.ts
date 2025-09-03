@@ -6,8 +6,11 @@ import userRoutes from "./routes/user.routes.ts";
 import subscriptionRoutes from "./routes/subscription.routes.ts";
 import connectDatabase from "./database/mongodb.ts";
 import errorMiddlware from "./middleware/error.middleware.ts";
-import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser";
+import { authMiddleware } from "./middleware/auth.middleware.ts";
+import pkg from "express-openid-connect";
 
+const { requiresAuth } = pkg;
 const app: Express = express();
 // middlewares
 app.use(express.json());
@@ -17,11 +20,17 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/subscription", subscriptionRoutes);
+app.use(authMiddleware);
 // error handler
 app.use(errorMiddlware);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send(`making the subscription tracking app and something olay`);
+  // res.send(`making the subscription tracking app and something olay`);
+  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+});
+
+app.get('/profile', requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
 });
 
 

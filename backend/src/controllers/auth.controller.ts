@@ -47,8 +47,8 @@ export const signUp = async (req: TypedRequest<SignUpRequestBody>, res: Response
         }
 
         // hashing password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        // const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, 10);
         // create new users
         const newUsers = new User({ name, email, password: hashedPassword, _id: new Types.ObjectId(), });
         await newUsers.save({ session });
